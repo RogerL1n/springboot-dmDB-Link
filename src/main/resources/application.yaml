@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: dmdb
+  profiles:
+    # 开发配置
+    active: dev
+#    active: prod
+server:
+  servlet:
+    context-path: /dmdb

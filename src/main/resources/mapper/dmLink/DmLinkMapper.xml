@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pck.dmdb.mapper.dmLink.DmLinkMapper">
+    <!--    达梦数据库 表名是要带着库名的-->
+
+    <select id="getAllInfoFromTable" resultType="java.util.LinkedHashMap">
+        select ifNull(CELLID, '') CELLID,
+        ifNull(LONGITUDE, '') LONGITUDE,
+        ifNull(LATITUDE, '') LATITUDE,
+        ifNull(SCRSRP, '') SCRSRP,
+        ifNull(SCTADV, '') SCTADV,
+        ifNull(SCAOA, '') SCAOA
+        from CMCC_WY.TBL_MDT_DATA
+        where CELLID = #{cellId}
+        and DATEID between #{beginTime} and #{endTime}
+        and LONGITUDE is not null
+        and LATITUDE is not null
+    </select>
+
+
+    <select id="getAllInfoFromTableByCI" resultType="map">
+        select *
+        from CMCC_WY.TBL_MDT_DATA
+        where CELLID = #{cellId}
+        and DATEID between #{beginTime} and #{endTime}
+        and LONGITUDE is not null
+        and LATITUDE is not null
+    </select>
+
+
+    <select id="getAllInfoByCIOrderByTimeAsc" resultType="map">
+        select *
+        from CMCC_WY.TBL_MDT_DATA
+        where CELLID = #{cellId}
+        and DATEID between #{beginTime} and #{endTime}
+        and LONGITUDE is not null
+        and LATITUDE is not null
+        order by DATEID acs
+    </select>
+
+    <select id="getOneDayDataAmountByCI" resultType="integer">
+        select count(*)
+        from CMCC_WY.TBL_MDT_DATA
+        where CELLID = #{cellId}
+        and DATEID between #{beginTime} and #{endTime}
+        and LONGITUDE is not null
+        and LATITUDE is not null
+    </select>
+</mapper>
